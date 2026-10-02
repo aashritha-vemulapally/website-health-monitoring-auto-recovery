@@ -42,7 +42,44 @@ function createApp() {
     state.healthy = false;
     res.json({ message: 'Failure simulated: /health now returns 503' });
   });
-
+    app.get('/', (req, res) => {
+    res.send(`
+      <!DOCTYPE html>
+      <html>
+      <head>
+        <title>Website Health Monitoring</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <style>
+          body {
+            font-family: Arial, sans-serif;
+            background: #f0f4f8;
+            text-align: center;
+            padding: 60px 20px;
+          }
+          .card {
+            background: white;
+            max-width: 600px;
+            margin: auto;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px #0002;
+          }
+          h1 { color: #173b67; }
+          a { color: #087f8c; }
+        </style>
+      </head>
+      <body>
+        <div class="card">
+          <h1>Website Health Monitoring System</h1>
+          <p>Your monitoring web application is running.</p>
+          <p>Health: <a href="/health">Check health status</a></p>
+          <p>API Status: <a href="/api/status">View application status</a></p>
+          <p>Metrics: <a href="/api/metrics">View server metrics</a></p>
+        </div>
+      </body>
+      </html>
+    `);
+  });
   app.use(express.static(path.join(__dirname, 'public')));
   return app;
 }
